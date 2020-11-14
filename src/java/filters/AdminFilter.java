@@ -27,17 +27,13 @@ public class AdminFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         String email = (String) session.getAttribute("email");
         
-        //if user != admin, wont be able to access /admin and is redirected to 
-        // /notes if already logged in.
         if (!email.equals("cprg352+admin@gmail.com")) {
-            //if email is null, redirect user back to the login page
+            //if email != admin, redirect the user to the /notes
             HttpServletResponse httpResponse = (HttpServletResponse)response;
             httpResponse.sendRedirect("notes");
             return;
         }
-        
-        
-        
+
         chain.doFilter(request, response); //Chain to the servlet / next filter
         
         //Execute after the servlet / filter
